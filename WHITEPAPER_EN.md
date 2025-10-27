@@ -1887,11 +1887,11 @@ This whitepaper contains forward-looking statements that involve risks and uncer
 ---
 
 **AETHER Foundation**
-Website: https://aether.foundation
-Email: contact@aether.foundation
-Twitter: @AetherBlockchain
-Discord: https://discord.gg/aether
-Telegram: https://t.me/aetherofficial
+Website: https://trendy.storydot.kr/mainnet/
+Email: myid998877@gmail.com
+Twitter: @myid998877
+FamilySite: https://trendy.storydot.kr/landing
+Telegram: @Vincet_ko
 
 **Version**: 1.0.0
 **Last Updated**: October 26, 2025
