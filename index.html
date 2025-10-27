@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AETHER - AI-Powered Universal Blockchain Integration Platform</title>
+    <meta name="description" content="Named after the divine ethereal substance of Greek mythology, AETHER represents the fundamental medium connecting all blockchain networks in the AI-driven future.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #8b5cf6;
+            --secondary-color: #06b6d4;
+            --accent-color: #f59e0b;
+            --bg-dark: #0a0a0f;
+            --bg-gradient: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+            --text-light: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Cosmic Background */
+        #cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--bg-gradient);
+        }
+
+        canvas {
+            display: block;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            padding: 8px;
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+            color: var(--primary-color);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero .description {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Vision Section */
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .vision-card {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .vision-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.3);
+        }
+
+        .vision-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+
+        .feature-card {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.3);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Node System */
+        .node-system {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .node-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.1));
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .node-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .node-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .node-card .reward {
+            color: var(--accent-color);
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .node-card ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .node-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .node-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        /* Performance Table */
+        .performance-table {
+            overflow-x: auto;
+            margin-top: 3rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(139, 92, 246, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1.5rem;
+            text-align: left;
+        }
+
+        th {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.2));
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        tr:nth-child(even) {
+            background: rgba(139, 92, 246, 0.02);
+        }
+
+        td:first-child {
+            font-weight: 600;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* Multi-Chain Section */
+        .chains-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .chain-card {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .chain-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+        }
+
+        .chain-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* UBI Section */
+        .ubi-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .ubi-card {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .ubi-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .ubi-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        /* Roadmap */
+        .roadmap {
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .roadmap-item {
+            background: rgba(139, 92, 246, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .roadmap-item:hover {
+            transform: translateX(10px);
+            box-shadow: -5px 5px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .roadmap-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .roadmap-item .phase {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 15, 0.9);
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        footer .social-links {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            /* Mobile Hamburger Menu */
+            .hamburger {
+                display: flex;
+            }
+
+            nav ul {
+                overflow-y: auto;
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(10, 10, 15, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding: 2rem 0;
+                gap: 2rem;
+                transition: left 0.3s ease;
+                z-index: 999;
+            }
+
+            nav ul.active {
+                left: 0;
+            }
+
+            nav ul li {
+                width: 100%;
+                text-align: center;
+            }
+
+            nav a {
+                font-size: 1.2rem;
+                display: block;
+                padding: 1rem;
+            }
+
+            /* Mobile Layout */
+            .features-grid,
+            .vision-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            #docs {
+                top: 60px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cosmic Background -->
+    <div id="cosmic-bg">
+        <canvas id="stars"></canvas>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="/mainnet/" class="logo" style="text-decoration: none; color: inherit;">AETHER</a>
+            <ul>
+                <li><a href="#vision">Vision</a></li>
+                <li><a href="#nodes">Nodes</a></li>
+                <li><a href="#performance">Performance</a></li>
+                <li><a href="#multichain">Multi-Chain</a></li>
+                <li><a href="#tech-architecture">Tech Architecture</a></li>
+                <li><a href="#tokenomics">Tokenomics</a></li>
+                <li><a href="#ubi">UBI</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#docs">Docs</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+<!-- Documentation Section (GitBook) -->    <section id="docs" style="display: none; position: fixed; top: 80px; left: 0; right: 0; bottom: 0; z-index: 999; background: white;">        <iframe             src="https://aibuilderhouse.gitbook.io/aether/"             style="width: 100%; height: 100%; border: none;"            title="AETHER Documentation"            allow="fullscreen"        ></iframe>    </section>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>AETHER</h1>
+            <p class="tagline">AI-Powered Universal Blockchain Integration Platform</p>
+            <p class="description">
+                Named after the divine ethereal substance of Greek mythology that gods breathed,
+                AETHER represents the fundamental medium connecting all blockchain networks in the AI-driven future.
+            </p>
+            <div class="cta-buttons">
+                <a href="#docs" class="btn btn-primary">Read Docs</a>
+                <a href="#vision" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section id="vision">
+        <div class="container">
+            <h2 class="section-title">Our Vision</h2>
+            <p class="section-subtitle">
+                Unifying all major blockchains for the AI era with zero gas fees, 10,000 TPS (verified on Monad testnet), and Universal Basic Income
+            </p>
+            <div class="vision-grid">
+                <div class="vision-card">
+                    <h3>🚀 AI-Native Infrastructure</h3>
+                    <p>Decentralized AI computation marketplace with Proof of AI Work (PoAIW) consensus, enabling AGI and AI agents on blockchain.</p>
+                </div>
+                <div class="vision-card">
+                    <h3>🌐 Universal Blockchain Integration</h3>
+                    <p>Seamlessly connect Ethereum, BNB Chain, Solana, Bitcoin, Kaia, and more through self-hosted EVM bridges, Wormhole, and HTLC.</p>
+                </div>
+                <div class="vision-card">
+                    <h3>💰 Universal Basic Income</h3>
+                    <p>$50-100/month for developing countries through Light Node participation, bridging the global wealth gap.</p>
+                </div>
+                <div class="vision-card">
+                    <h3>⚡ Zero Gas Fees</h3>
+                    <p>ERC-2771 meta-transactions and ERC-4337 account abstraction eliminate gas fees for all users.</p>
+                </div>
+                <div class="vision-card">
+                    <h3>🔐 Hybrid Security</h3>
+                    <p>PBFT + PoW consensus with GPU miners providing both security and AI computation power.</p>
+                </div>
+                <div class="vision-card">
+                    <h3>🌍 Open Source Future</h3>
+                    <p>100% open source, combining strengths of all major blockchains to create a unified platform for humanity.</p>
+                </div>
+                <div class="vision-card">
+                    <h3>🤝 AI & Blockchain Synergy</h3>
+                    <p>AI and blockchain complement each other, not compete. AI provides intelligent computation while blockchain ensures transparency, ownership, and trustless execution. Together, they create a foundation for autonomous digital economies.</p>
+                </div>
+                <div class="vision-card">
+                    <h3>📈 AI Agent Economy Enabler</h3>
+                    <p>Blockchain technology drives explosive growth of AI agent utility markets. Affordable GPU sharing through AETHER network makes agent development accessible via vibe coding - everyone can build their own AI workers and monetize their services globally.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Node System Section -->
+    <section id="nodes">
+        <div class="container">
+            <h2 class="section-title">Three-Tier Node System</h2>
+            <p class="section-subtitle">
+                <strong>Decentralized GPU Infrastructure for AI Agent Builders:</strong> 10,000+ RTX 3060+ GPUs providing CUDA compute power to any DApp or AI agent. Validators ensure blockchain stability, GPU miners power AI workloads, Light Nodes distribute UBI globally. Complete ecosystem for AI-blockchain convergence.
+            </p>
+            <div class="node-system">
+                <div class="node-card">
+                    <h3>⚡ Validator Nodes</h3>
+                    <p class="reward">30% of Daily Rewards (300,000 ATH/day)</p>
+                    <p><strong>Blockchain Stability:</strong> PBFT consensus leaders creating blocks and finalizing transactions</p>
+                    <ul>
+                        <li><strong>Hardware:</strong> 16-core CPU, 64GB RAM, 2TB NVMe SSD</li>
+                        <li><strong>Stake:</strong> 100,000 ATH minimum lock</li>
+                        <li><strong>Performance:</strong> 1-second finality, 99.9% uptime SLA</li>
+                        <li><strong>Rewards:</strong> 3,000 ATH/day per validator (target: 100 validators)</li>
+                        <li><strong>Role:</strong> Professional operators ensuring network security and transaction finality</li>
+                    </ul>
+                </div>
+                <div class="node-card">
+                    <h3>🎮 GPU Mining Nodes</h3>
+                    <p class="reward">50% of Daily Rewards (500,000 ATH/day)</p>
+                    <p><strong>AI Infrastructure Platform:</strong> Dual-purpose mining - PoAIW consensus (25%) + GPU marketplace for DApps (25%). Any DApp or AI agent can rent CUDA compute power on-demand.</p>
+                    <ul>
+                        <li><strong>Hardware:</strong> RTX 3060 12GB minimum (RTX 4090 recommended for max earnings)</li>
+                        <li><strong>Compute Marketplace:</strong> DApps rent GPU power for AI inference, training, rendering - paid in AETHER tokens</li>
+                        <li><strong>AI Agent Infrastructure:</strong> Developers deploy LLMs, vision models, voice synthesis without AWS/GCP costs</li>
+                        <li><strong>Earnings:</strong> 100 ATH/day base + 50-200 ATH/day from compute rentals = 0-100/day total</li>
+                        <li><strong>Economic Model:</strong> 10x cheaper than AWS EC2 GPU instances, miners keep 80% of rental fees</li>
+                    </ul>
+                </div>
+                <div class="node-card">
+                    <h3>📱 Light Nodes (UBI)</h3>
+                    <p class="reward">20% of Daily Rewards (200,000 ATH/day)</p>
+                    <p><strong>Global Phone Mining:</strong> Network relay and transaction propagation - anyone with smartphone earns UBI. Critical for network decentralization and stablecoin distribution.</p>
+                    <ul>
+                        <li><strong>Hardware:</strong> Any PC, smartphone, tablet with internet connection</li>
+                        <li><strong>Accessibility:</strong> Zero specialized hardware - use device you already own</li>
+                        <li><strong>UBI Distribution:</strong> 20 ATH/day base × KYC multipliers (1x/1.5x/2x) = 0-100/month</li>
+                        <li><strong>Network Role:</strong> 100,000+ Light Nodes create robust relay network, prevent centralization</li>
+                        <li><strong>Stablecoin Integration:</strong> UBI paid in AETHER, instantly convertible to USDC/USDT via built-in DEX</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- GPU Marketplace Details -->
+            <div class="features-grid" style="margin-top: 3rem;">
+                <div class="feature-card">
+                    <span class="feature-icon">🛠️</span>
+                    <h3>GPU Marketplace for DApp Developers</h3>
+                    <p><strong>On-Demand CUDA Compute:</strong> AI agent builders access 10,000+ GPUs via simple API. Deploy LLaMA 70B, Stable Diffusion XL, Whisper voice models without infrastructure costs. Pay only for GPU-seconds used, priced 10x cheaper than AWS.</p>
+                    <p><strong>Use Cases:</strong> AI chatbots, image generation DApps, voice assistants, recommendation systems, fraud detection, NFT rendering, metaverse graphics, scientific computing. Any compute-intensive DApp benefits from decentralized GPU network.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🌍</span>
+                    <h3>Empowering Poor Regions</h3>
+                    <p><strong>AI Agent Development Access:</strong> Developers in India, Nigeria, Indonesia can deploy powerful AI models using shared GPU marketplace - no $30,000 RTX 4090 required. Rent compute by the minute, build AI agents via "vibe coding", monetize globally.</p>
+                    <p><strong>Economic Impact:</strong> Light Node UBI ($50-100/month) + AI agent revenue sharing = sustainable income for 1 billion+ people in developing countries. AETHER democratizes both AI access and AI monetization.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">⚖️</span>
+                    <h3>Network Stability Through Diversity</h3>
+                    <p><strong>Three-Tier Resilience:</strong> Validators (100+ professional operators) ensure consensus security. GPU miners (10,000+ global distribution) prevent compute centralization. Light Nodes (100,000+ phone miners) create robust relay network across 150+ countries.</p>
+                    <p><strong>Why It Matters:</strong> No single entity controls >1% of network. Geographic diversity (Asia 40%, Africa 30%, Americas 20%, Europe 10%) prevents regional attacks. Phone mining makes 51% attack economically impossible - attackers would need to control 50,000+ individual smartphones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Comparison -->
+    <section id="performance">
+        <div class="container">
+            <h2 class="section-title">Performance Comparison</h2>
+            <p class="section-subtitle">
+                AETHER outperforms all major blockchains in speed, cost, and finality
+            </p>
+            <div class="performance-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>AETHER</th>
+                            <th>Ethereum</th>
+                            <th>BNB Chain</th>
+                            <th>Solana</th>
+                            <th>Kaia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Gas Fee</td>
+                            <td class="highlight">$0 (Free)</td>
+                            <td>$2-50</td>
+                            <td>$0.10-1</td>
+                            <td>$0.00025</td>
+                            <td>$0.01</td>
+                        </tr>
+                        <tr>
+                            <td>TPS</td>
+                            <td class="highlight">10,000</td>
+                            <td>15-30</td>
+                            <td>300-600</td>
+                            <td>65,000</td>
+                            <td>4,000</td>
+                        </tr>
+                        <tr>
+                            <td>Block Time</td>
+                            <td class="highlight">500ms</td>
+                            <td>12 sec</td>
+                            <td>3 sec</td>
+                            <td>400ms</td>
+                            <td>1 sec</td>
+                        </tr>
+                        <tr>
+                            <td>Finality</td>
+                            <td class="highlight">800ms</td>
+                            <td>6-13 min</td>
+                            <td>3 sec</td>
+                            <td>0.4 sec</td>
+                            <td>1 sec</td>
+                        </tr>
+                        <tr>
+                            <td>AI Compute</td>
+                            <td class="highlight">Native (PoAIW)</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>UBI System</td>
+                            <td class="highlight">Built-in</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>No</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            
+            <!-- Technical Explanation Section -->
+            <h3 class="section-title" style="margin-top: 4rem; font-size: 2rem;">How AETHER Achieves Unprecedented Performance</h3>
+            <p class="section-subtitle">
+                <strong>The "Impossible Trinity" Solved:</strong> Free gas fees + 10,000 TPS + fast finality + AI compute - all achieved through innovative architecture combining Monad parallel EVM, ERC-4337 account abstraction, PBFT consensus, and Proof-of-AI-Work.
+            </p>
+            
+            <div class="features-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1400px; margin: 3rem auto;">
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Monad Parallel EVM: 10,000 TPS (Verified on Monad Testnet)</h3>
+                    <p><strong>Optimistic Parallelization:</strong> AETHER integrates Monad Labs' parallel EVM engine that executes independent transactions simultaneously across multiple CPU cores. Unlike Ethereum's sequential processing (15-30 TPS), AETHER processes 10,000 transactions per second by eliminating unnecessary ordering constraints.</p>
+                    <p><strong>How It Works:</strong> Smart contract analyzer identifies transaction dependencies in real-time. Independent transactions (different wallet addresses, different contracts) execute in parallel threads. Only conflicting transactions (same state access) wait for sequential processing. Result: 3,000x faster than Ethereum.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">💰</span>
+                    <h3>Zero Gas Fees: ERC-4337 Meta-Transactions</h3>
+                    <p><strong>Account Abstraction Layer:</strong> AETHER implements ERC-4337 where relayers (GPU miners) pay gas fees on behalf of users. Users sign transactions off-chain, relayers batch 1,000+ transactions into single on-chain bundle. Gas costs distributed across entire network via mining rewards.</p>
+                    <p><strong>Economic Model:</strong> GPU miners earn 100 AETHER/day for processing transactions + gas fee subsidies. Users pay /usr/bin/bash gas fees. Network sustainable because mining rewards > gas costs. As network grows, per-user subsidy decreases while miner profitability increases.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">⏱️</span>
+                    <h3>Fast Finality: CometBFT Consensus (800ms)</h3>
+                    <p><strong>Practical Byzantine Fault Tolerance:</strong> AETHER uses PBFT consensus with 100+ validator nodes requiring 67%+ agreement for block finality. Unlike Ethereum's probabilistic finality (13 minutes), PBFT provides instant economic finality - transactions are irreversible after 800ms.</p>
+                    <p><strong>Performance vs Security:</strong> PBFT achieves 500ms block time (30x faster than Ethereum's 12 seconds) while maintaining Byzantine fault tolerance up to 33% malicious validators. Trade-off: slightly more centralized than PoW (100 validators vs thousands of miners) but 100,000x more energy efficient.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🧠</span>
+                    <h3>AI Compute Integration: Proof-of-AI-Work</h3>
+                    <p><strong>Dual Mining System:</strong> GPU miners run both blockchain validation AND AI inference tasks simultaneously. CUDA cores process smart contract transactions while Tensor cores handle AI model inference. Single hardware, dual revenue streams: block rewards + AI compute fees.</p>
+                    <p><strong>Why It's Possible:</strong> Modern GPUs (RTX 3060+) have separate processing units - CUDA cores for graphics/blockchain, Tensor cores for AI. AETHER's optimized kernel scheduler utilizes 90%+ GPU capacity for both tasks without performance degradation. Blockchain uses 30% CUDA, AI uses 70% Tensor cores.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🔄</span>
+                    <h3>Synergistic Architecture</h3>
+                    <p><strong>How Components Work Together:</strong></p>
+                    <p>
+                        <strong>1. Monad Parallel EVM:</strong> Enables 10,000 TPS throughput<br>
+                        <strong>2. ERC-4337 Relayers:</strong> GPU miners batch transactions, eliminating per-user gas fees<br>
+                        <strong>3. PBFT Consensus:</strong> Validators finalize blocks in 1 second, enabling fast UX<br>
+                        <strong>4. PoAIW Mining:</strong> GPU miners earn rewards for both blockchain + AI compute, funding gas subsidies
+                    </p>
+                    <p><strong>Result:</strong> Users enjoy free transactions, instant finality, and native AI capabilities - all powered by sustainable mining economics that align incentives across the entire network.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <h3>Real-World Performance Comparison</h3>
+                    <p><strong>Cost to Send 00:</strong></p>
+                    <p>
+                        Ethereum: -50 gas fee (2-50% cost) + 13 min wait<br>
+                        Solana: /usr/bin/bash.00025 (0.0003%) + 0.4 sec wait<br>
+                        <strong>AETHER: /usr/bin/bash gas fee (0%) + 1 sec wait</strong>
+                    </p>
+                    <p><strong>Why AETHER Wins:</strong> Combines Solana's speed with zero gas fees. Perfect for micropayments, DeFi trading, NFT minting, AI agent payments - use cases where even /usr/bin/bash.01 gas fees create friction. Only AETHER enables truly free, instant blockchain transactions at scale.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+        </div>
+    </section>
+
+    <!-- Multi-Chain Integration -->
+    <section id="multichain">
+        <div class="container">
+            <h2 class="section-title">Multi-Chain Integration</h2>
+            <p class="section-subtitle">
+                <strong>Cross-Chain Interoperability at Scale:</strong> Connect seamlessly with Ethereum and BNB Chain through self-hosted EVM bridges (zero cost), atomic swap Bitcoin directly via HTLC contracts, and bridge to Solana via Wormhole open-source protocol. True decentralization with community-operated relayer network.
+            </p>
+            <div class="features-grid" style="grid-template-columns: repeat(3, 1fr); max-width: 1400px; margin: 3rem auto;">
+                <div class="feature-card">
+                    <span class="feature-icon">🌐</span>
+                    <h3>Self-Hosted EVM Bridge: Ethereum & BNB</h3>
+                    <p><strong>Zero-Cost Trustless Bridge:</strong> AETHER operates its own EVM bridge using Light Client verification for Ethereum and BNB Chain. No third-party fees, fully decentralized with community-operated relayer network. All bridge transactions are completely free for users.</p>
+                    <p><strong>How It Works:</strong> Light Clients sync blockchain headers and verify Merkle proofs for transaction inclusion. Smart contracts lock tokens on source chain, relayers submit proofs to destination chain, and cryptographic verification ensures trustless bridging without intermediaries.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">₿</span>
+                    <h3>Bitcoin Atomic Swaps (HTLC)</h3>
+                    <p><strong>Trustless BTC Bridging:</strong> Hash Time-Locked Contracts (HTLC) enable direct Bitcoin-AETHER swaps without custodians. Lock BTC on Bitcoin network, mint wrapped BTC on AETHER - all secured by cryptographic hash locks with automatic refund if swap fails.</p>
+                    <p><strong>Technical Process:</strong> Alice locks BTC with hashlock H(x), Bob locks ATH with same hashlock. Alice reveals secret x to claim ATH, Bob uses x to claim BTC. Time-locks prevent fund loss if counterparty disappears. Fully decentralized, zero trust required.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🪐</span>
+                    <h3>Wormhole: Solana Bridge</h3>
+                    <p><strong>Guardian Network Integration:</strong> 19 independent validators (guardians) including Jump Trading, Chainlink, and major DeFi protocols monitor cross-chain messages. AETHER-Solana bridge secured by multi-signature verification requiring 13/19 guardian consensus.</p>
+                    <p><strong>High-Performance Bridging:</strong> Wormhole handles Solana's 65,000 TPS throughput. Users bridge SPL tokens, NFTs, and data messages between AETHER and Solana ecosystems with near-instant finality. Perfect for DeFi arbitrage and NFT marketplaces.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🏗️</span>
+                    <h3>Cross-Chain Architecture</h3>
+                    <p><strong>Layered Bridge Infrastructure:</strong></p>
+                    <p>
+                        <strong>Layer 1 (Verification):</strong> Independent oracles verify source chain state<br>
+                        <strong>Layer 2 (Consensus):</strong> Multi-signature guardians approve cross-chain messages<br>
+                        <strong>Layer 3 (Execution):</strong> Destination chain smart contracts execute transactions<br>
+                        <strong>Layer 4 (Finality):</strong> Both chains confirm completion, funds unlocked
+                    </p>
+                    <p><strong>Security Model:</strong> No single point of failure. Oracles, relayers, and guardians are economically incentivized and independently operated. Even if 50% compromise, bridge remains secure through threshold cryptography.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Unified Liquidity</h3>
+                    <p><strong>Cross-Chain DeFi:</strong> AETHER's multi-chain architecture aggregates liquidity from Ethereum L2s, BSC DeFi protocols, and Solana DEXs. Users access 00B+ TVL across all chains from single AETHER wallet.</p>
+                    <p><strong>Auto-Routing:</strong> Smart contracts automatically route trades through optimal chains based on gas fees, slippage, and liquidity depth. Swap ETH → SOL in one transaction - AETHER handles complex multi-hop bridging behind the scenes.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
+                    <h3>Security & Decentralization</h3>
+                    <p><strong>Multi-Bridge Strategy:</strong> AETHER uses 3 independent bridge protocols (Self-hosted EVM, Wormhole, HTLC) to eliminate single points of failure. If one bridge is compromised, assets automatically route through backup bridges.</p>
+                    <p><strong>Insurance Pool:</strong> 10% of bridge fees fund cross-chain insurance. If users lose funds due to bridge exploits, insurance pool compensates up to 0M per incident. Community governance controls insurance payouts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+        <div class="container">
+            <h2 class="section-title">Universal Basic Income</h2>
+            <p class="section-subtitle">
+                <strong>Addressing AI-Driven Job Loss & Wealth Gap:</strong> As AI replaces millions of jobs globally, AETHER provides sustainable income through accessible blockchain mining. Mine on ANY phone, share GPU power for AI agent development in poor regions.
+            </p>
+            <div class="ubi-features">
+                <div class="ubi-card">
+                    <div class="icon">💰</div>
+                    <h3>$50-100/Month UBI</h3>
+                    <p><strong>Fighting AI Job Displacement:</strong> Meaningful income for developing countries as AI automation threatens traditional employment. Light Node participation on any device provides financial safety net during the AI transition.</p>
+                </div>
+                <div class="ubi-card">
+                    <div class="icon">🌍</div>
+                    <h3>Bridging Wealth Polarization</h3>
+                    <p><strong>Target: 1 Billion+ People.</strong> India, Nigeria, Indonesia, Philippines, Bangladesh - regions hit hardest by AI job loss. AETHER democratizes blockchain income where it\'s needed most.</p>
+                </div>
+                <div class="ubi-card">
+                    <div class="icon">🔐</div>
+                    <h3>KYC Multipliers</h3>
+                    <p>Level 1 (1x), Level 2 (1.5x), Level 3 (2x) rewards based on verification level - ensuring fair distribution while preventing abuse.</p>
+                </div>
+                <div class="ubi-card">
+                    <div class="icon">📱</div>
+                    <h3>Mine on ANY Phone</h3>
+                    <p><strong>Zero Hardware Barrier:</strong> Run Light Nodes on PC, smartphone, or tablet. No expensive mining rigs needed - your existing phone earns daily income while you sleep. Perfect for regions without capital for specialized equipment.</p>
+                </div>
+                <div class="ubi-card">
+                    <div class="icon">🧠</div>
+                    <h3>GPU Sharing for Poor Regions</h3>
+                    <p><strong>AI Agent Development Access:</strong> AETHER\'s GPU marketplace lets people in developing countries utilize shared CUDA compute power to build and deploy their own AI agents - turning consumers into AI creators without expensive hardware.</p>
+                </div>
+                <div class="ubi-card">
+                    <div class="icon">🎁</div>
+                    <h3>Referral Program</h3>
+                    <p>5 ATH signup bonus + 5% revenue share from referrals - accelerating network adoption in underserved communities worldwide.</p>
+                </div>
+                <div class="ubi-card">
+                    <div class="icon">♻️</div>
+                    <h3>Sustainable & Scalable</h3>
+                    <p>20% of daily mining rewards (200,000 ATH/day) dedicated to UBI pool. As network grows to 100,000+ Light Nodes, the system remains economically viable for decades.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section id="roadmap">
+        <div class="container">
+            <h2 class="section-title">Roadmap</h2>
+            <p class="section-subtitle">
+                Our journey to universal blockchain integration
+            </p>
+            <div class="roadmap">
+                <div class="roadmap-item">
+                    <div class="phase">Phase 1: Foundation (Q1 2026)</div>
+                    <h3>Testnet Launch & Infrastructure</h3>
+                    <p><strong>Core Network:</strong> Deploy testnet with PBFT consensus (400ms block time, 1s finality), activate 30 initial validators across 5 continents for geographic decentralization.</p>
+                    <p><strong>Developer Tools:</strong></p>
+                    <ul style="text-align: left; margin: 1rem 0 0 2rem;">
+                        <li><strong>Block Explorer:</strong> Real-time transaction tracking, validator monitoring, smart contract verification</li>
+                        <li><strong>Web Wallet:</strong> MetaMask-compatible wallet with ERC-2771 meta-transaction support for zero gas fees</li>
+                        <li><strong>Documentation Hub:</strong> Comprehensive API docs, SDK tutorials, smart contract examples</li>
+                        <li><strong>Testnet Faucet:</strong> Free AETHER tokens for developers (1000 AETHER/day limit)</li>
+                        <li><strong>Remix IDE Integration:</strong> Browser-based Solidity development with AETHER testnet support</li>
+                        <li><strong>RPC Endpoints:</strong> HTTPS/WSS endpoints (99.9% uptime SLA) for dApp integration</li>
+                    </ul>
+                    <p><strong>Community Building:</strong> Launch bug bounty program ($100K pool), developer grants (10 projects × $10K), organize 3 global hackathons.</p>
+                </div>
+                <div class="roadmap-item">
+                    <div class="phase">Phase 2: Mainnet Launch (Q2 2026)</div>
+                    <h3>Public Launch & DApp Ecosystem</h3>
+                    <p><strong>Token Generation Event:</strong> TGE with 4% initial circulation (400M AETHER), list on 5+ Tier-1 CEXs (Binance, Coinbase, OKX target), achieve $500M+ FDV.</p>
+                    <p><strong>Network Activation:</strong> Activate 100+ validators, onboard 10,000+ GPU miners (RTX 3060+ requirement), deploy 100K+ Light Nodes for UBI distribution.</p>
+                    <p><strong>DApp Launchpad:</strong></p>
+                    <ul style="text-align: left; margin: 1rem 0 0 2rem;">
+                        <li><strong>AETHER DEX:</strong> AMM with Monad parallel EVM (10,000 TPS verified), MEV protection, 0.2% trading fee, $100M+ liquidity target</li>
+                        <li><strong>NFT Marketplace:</strong> Cross-chain NFT trading (Self-hosted EVM bridge), royalty enforcement, AI-generated NFT minting</li>
+                        <li><strong>IDO Launchpad:</strong> Fair launch platform for new tokens, KYC/AML compliance, anti-bot protection, 50+ project launches planned</li>
+                        <li><strong>AI Agent Hub:</strong> Decentralized AI agent deployment platform, GPU compute marketplace, pre-trained model library (LLaMA, Stable Diffusion)</li>
+                    </ul>
+                    <p><strong>Multi-Chain Bridges:</strong> Deploy self-hosted EVM bridges to Ethereum and BNB Chain, Wormhole integration for Solana, Bitcoin Atomic Swaps (HTLC) for BTC bridge.</p>
+                </div>
+                <div class="roadmap-item">
+                    <div class="phase">Phase 3: Ecosystem Growth (Q3-Q4 2026)</div>
+                    <h3>Mass Adoption & Enterprise Integration</h3>
+                    <p><strong>AI Compute Marketplace:</strong> Launch GPU sharing platform with CUDA support, enable distributed AI training (100+ GPUs coordinated), achieve $10M+ monthly compute revenue.</p>
+                    <p><strong>Network Expansion:</strong> Grow to 500+ validators, 50,000+ GPU miners contributing 100+ PFLOPS compute power, 1M+ Light Node users earning UBI ($50/month average).</p>
+                    <p><strong>DApp Ecosystem:</strong> Onboard 100+ dApps (DeFi, GameFi, SocialFi), launch $50M developer grants program (Series A), establish AETHER Ventures for strategic investments.</p>
+                    <p><strong>Enterprise Adoption:</strong> Partner with 10+ Fortune 500 companies for blockchain integration, deploy private consortium chains, achieve SOC 2 Type II compliance.</p>
+                </div>
+                <div class="roadmap-item">
+                    <div class="phase">Phase 4: Mass Adoption (2027+)</div>
+                    <h3>Global Scale & AGI Integration</h3>
+                    <p><strong>Universal Basic Income:</strong> Scale UBI to 10M+ users globally, distribute $500M+ annually, partner with governments for pilot programs in 5+ countries.</p>
+                    <p><strong>Performance Milestones:</strong> Achieve sustained 10,000 TPS (Monad verified), maintain sub-second finality, process 1B+ daily transactions, become top-3 blockchain by volume.</p>
+                    <p><strong>AGI Integration:</strong> Enable on-chain AGI model training, deploy decentralized AI inference network, launch AETHER AI SDK for developers, target 1M+ AI agents deployed.</p>
+                    <p><strong>Decentralization:</strong> Transition to full community governance (DAO), achieve Nakamoto coefficient >100, maintain zero single points of failure, ensure censorship resistance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+<section id="tech-architecture" style="padding: 5rem 0; background: var(--bg-dark);">
+    <div class="container">
+        <h2 class="section-title" style="color: white;">Technical Architecture</h2>
+        <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">
+            Understanding the Technology Behind AETHER
+        </p>
+        
+        <div class="features-grid" style="grid-template-columns: repeat(3, 1fr); max-width: 1400px; margin: 3rem auto;">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>PBFT + Monad Parallel EVM</h3>
+                <p><strong>Where it is reflected:</strong> Core consensus layer + Transaction processing engine</p>
+                <p><strong>How it works:</strong> PBFT (Practical Byzantine Fault Tolerance) provides 500ms block time and 800ms finality, while Monad optimistic parallel execution enables 10,000 TPS by processing independent transactions simultaneously across multiple CPU cores.</p>
+                <p><strong>Why it is possible:</strong> PBFT requires only 2/3 validator consensus (vs 51% in PoW), and Monad analyzes transaction dependencies to safely parallelize execution without conflicts.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💸</div>
+                <h3>Zero Gas Fees</h3>
+                <p><strong>Where it is reflected:</strong> All user transactions (transfers, DeFi, NFTs)</p>
+                <p><strong>How it works:</strong> ERC-2771 meta-transactions allow relayers to pay gas on behalf of users, while ERC-4337 account abstraction enables smart contract wallets to sponsor transaction costs from treasury or staking rewards.</p>
+                <p><strong>Why it is possible:</strong> Validator rewards (9B AETHER over 10 years) subsidize network operations, eliminating the need to charge end-users for gas fees.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🌉</div>
+                <h3>Multi-Chain Integration</h3>
+                <p><strong>Where it is reflected:</strong> Cross-chain bridge contracts + Asset wrapping system</p>
+                <p><strong>How it works:</strong> Self-hosted EVM bridges connect to Ethereum and BNB Chain via Light Client verification, Wormhole uses Guardian network for Solana integration, and Bitcoin Atomic Swaps (HTLC) enable trustless BTC bridging without wrapped tokens.</p>
+                <p><strong>Why it is possible:</strong> Self-hosted bridges use Light Clients with Merkle proof verification, Wormhole relies on 19 Guardian validators, and HTLC (Hash Time-Locked Contracts) guarantee atomic swap security through cryptographic proofs.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🖥️</div>
+                <h3>GPU Sharing &amp; CUDA Integration</h3>
+                <p><strong>Where it is reflected:</strong> AI Agent Hub + Compute marketplace</p>
+                <p><strong>How it works:</strong> RTX 3060+ GPUs donate idle compute cycles to AETHER network, earning 100 AETHER/day. CUDA kernels run distributed AI inference (LLaMA, Stable Diffusion) across thousands of consumer GPUs.</p>
+                <p><strong>Why it is possible:</strong> NVIDIA CUDA 11.8+ provides standardized GPU compute API, while AETHER smart contracts handle task distribution, result verification, and automatic reward payouts.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Light Node Mobile Mining</h3>
+                <p><strong>Where it is reflected:</strong> Mobile apps (iOS/Android) + UBI distribution system</p>
+                <p><strong>How it works:</strong> SPV (Simplified Payment Verification) light nodes validate block headers without downloading full blockchain. They participate in transaction propagation and receive 20 AETHER/day as Universal Basic Income.</p>
+                <p><strong>Why it is possible:</strong> Merkle tree proofs allow light nodes to verify transactions with only 1MB data vs 100GB+ full node storage, making mobile participation feasible.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔺</div>
+                <h3>Three-Tier Node Architecture</h3>
+                <p><strong>Where it is reflected:</strong> Network topology + Reward distribution logic</p>
+                <p><strong>How it works:</strong></p>
+                <ul style="text-align: left; margin: 1rem 0 0 1.5rem; color: #666;">
+                    <li><strong>Validators (30%):</strong> 100+ nodes staking 100K+ AETHER, running PBFT consensus, earning 300 AETHER/day</li>
+                    <li><strong>GPU Miners (50%):</strong> 10,000+ RTX 3060+ GPUs providing AI compute, earning 100 AETHER/day</li>
+                    <li><strong>Light Nodes (20%):</strong> 100,000+ mobile users running SPV nodes, earning 20 AETHER/day UBI</li>
+                </ul>
+                <p><strong>Why it is possible:</strong> Smart contract enforces automatic reward distribution based on verifiable contributions (validator uptime, GPU compute hours, light node tx propagation).</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 4rem; padding: 2rem; background: rgba(255,255,255,0.1); border-radius: 15px; backdrop-filter: blur(10px);">
+            <h3 style="color: white; font-size: 1.8rem; margin-bottom: 1.5rem; text-align: center;">🔗 How Everything Connects</h3>
+            <p style="color: rgba(255,255,255,0.95); font-size: 1.1rem; line-height: 1.8; text-align: center; max-width: 900px; margin: 0 auto;">
+                <strong>User sends a transaction</strong> → ERC-2771 relayer pays gas fee → PBFT validators reach consensus in 500ms → Monad parallel EVM processes 10,000 TPS → Transaction recorded on-chain → Self-hosted EVM and Wormhole bridges enable cross-chain transfers → GPU miners earn rewards by providing AI compute → Light nodes propagate transactions and earn UBI → All participants receive AETHER rewards from 10B total supply → Zero gas fees for end users create seamless Web3 experience.
+            </p>
+        </div>
+    </div>
+</section>
+<section id="tokenomics" style="padding: 5rem 0; background: var(--bg-dark);">
+    <div class="container">
+        <h2 class="section-title" style="color: white;">Tokenomics</h2>
+        <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">
+            Sustainable Economic Model for the AETHER Ecosystem
+        </p>
+
+        <!-- Token Overview -->
+        <div style="background: rgba(255,255,255,0.15); padding: 3rem; border-radius: 20px; backdrop-filter: blur(10px); margin: 3rem 0;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center;">
+                <div>
+                    <h3 style="color: white; font-size: 2.5rem; margin-bottom: 0.5rem;">10B</h3>
+                    <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">Total Supply</p>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 0.5rem;">Fixed maximum supply</p>
+                </div>
+                <div>
+                    <h3 style="color: white; font-size: 2.5rem; margin-bottom: 0.5rem;">4%</h3>
+                    <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">Initial Circulation</p>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 0.5rem;">400M AETHER at TGE</p>
+                </div>
+                <div>
+                    <h3 style="color: white; font-size: 2.5rem; margin-bottom: 0.5rem;">10 Years</h3>
+                    <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">Distribution Period</p>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 0.5rem;">3,650 days total</p>
+                </div>
+                <div>
+                    <h3 style="color: white; font-size: 2.5rem; margin-bottom: 0.5rem;">$0</h3>
+                    <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">Gas Fees</p>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 0.5rem;">Zero-cost transactions</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Token Distribution -->
+        <div class="features-grid" style="margin-top: 3rem;">
+            <div class="feature-card">
+                <div class="feature-icon">🏛️</div>
+                <h3>Validator Rewards (30%)</h3>
+                <p><strong>Allocation:</strong> 3,000,000,000 AETHER</p>
+                <p><strong>Daily Reward:</strong> 300 AETHER per validator</p>
+                <p><strong>Requirements:</strong> Stake 100K+ AETHER, run PBFT consensus node, maintain 99.9% uptime</p>
+                <p><strong>Target Network:</strong> 100+ validators globally distributed for maximum decentralization and security</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🖥️</div>
+                <h3>GPU Miner Rewards (50%)</h3>
+                <p><strong>Allocation:</strong> 5,000,000,000 AETHER</p>
+                <p><strong>Daily Reward:</strong> 100 AETHER per GPU</p>
+                <p><strong>Requirements:</strong> RTX 3060+ GPU (12GB+ VRAM), provide AI compute cycles, run CUDA kernels</p>
+                <p><strong>Target Network:</strong> 10,000+ GPUs creating world largest distributed AI compute network</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Light Node UBI (20%)</h3>
+                <p><strong>Allocation:</strong> 2,000,000,000 AETHER</p>
+                <p><strong>Daily Reward:</strong> 20 AETHER per node</p>
+                <p><strong>Requirements:</strong> Run SPV light node on mobile/desktop, propagate transactions, participate in network</p>
+                <p><strong>Target Network:</strong> 100,000+ nodes providing universal basic income to all participants</p>
+            </div>
+        </div>
+
+        <!-- Token Utility -->
+        <div style="margin-top: 4rem; background: rgba(255,255,255,0.1); padding: 2.5rem; border-radius: 15px; backdrop-filter: blur(10px);">
+            <h3 style="color: white; font-size: 1.8rem; margin-bottom: 2rem; text-align: center;">🔑 Token Utility</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; color: rgba(255,255,255,0.95);">
+                <div>
+                    <h4 style="color: white; margin-bottom: 1rem;">🗳️ Governance</h4>
+                    <p>DAO voting rights for protocol upgrades, parameter changes, treasury allocation, and ecosystem decisions. 1 AETHER = 1 vote.</p>
+                </div>
+                <div>
+                    <h4 style="color: white; margin-bottom: 1rem;">🔒 Staking</h4>
+                    <p>Stake AETHER to become validator (100K+ required), earn rewards, secure network, and gain governance power.</p>
+                </div>
+                <div>
+                    <h4 style="color: white; margin-bottom: 1rem;">💸 Transaction Fees</h4>
+                    <p>While users pay zero gas fees, validators can optionally accept AETHER tips for priority transaction inclusion.</p>
+                </div>
+                <div>
+                    <h4 style="color: white; margin-bottom: 1rem;">🎮 DApp Payments</h4>
+                    <p>Pay for DApp services, NFT minting, AI compute cycles, cross-chain bridging, and all ecosystem applications.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Economic Sustainability -->
+        <div style="margin-top: 4rem; padding: 2rem; background: rgba(255,255,255,0.15); border-radius: 15px; backdrop-filter: blur(10px);">
+            <h3 style="color: white; font-size: 1.8rem; margin-bottom: 1.5rem; text-align: center;">💰 Economic Sustainability</h3>
+            <p style="color: rgba(255,255,255,0.95); font-size: 1.1rem; line-height: 1.8; text-align: center; max-width: 900px; margin: 0 auto;">
+                <strong>Deflationary Pressure:</strong> Transaction fees collected by validators are burned, reducing circulating supply over time. <strong>Value Accrual:</strong> As ecosystem grows (DApps, users, transactions), demand for AETHER increases while supply decreases. <strong>UBI Impact:</strong> 100,000+ Light Node participants receive daily basic income, creating widespread token distribution and network effects. <strong>Long-term Vision:</strong> 10-year distribution ensures gradual, sustainable token release aligned with ecosystem growth milestones.
+            </p>
+        </div>
+    </div>
+</section>
+            <div class="cta-buttons">
+                <a href="WHITEPAPER_EN.md" class="btn btn-secondary" target="_blank">View Online</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 AETHER Foundation. All rights reserved.</p>
+            <p style="color: var(--text-muted); margin-top: 1rem;">
+                Building the universal blockchain platform for the AI era
+            </p>
+            <div class="social-links">
+                <a href="#">GitHub</a>
+                <a href="#">Twitter</a>
+                <a href="#">Discord</a>
+                <a href="#">Telegram</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Animated Stars JavaScript -->
+    <script>
+        // Canvas setup
+        const canvas = document.getElementById('stars');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Particle class for stars
+        class Star {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+                this.opacity = Math.random();
+                this.pulseSpeed = Math.random() * 0.02;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Pulse effect
+                this.opacity += this.pulseSpeed;
+                if (this.opacity > 1 || this.opacity < 0) {
+                    this.pulseSpeed *= -1;
+                }
+
+                // Wrap around screen
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(139, 92, 246, ${this.opacity})`;
+                ctx.shadowBlur = 5;
+                ctx.shadowColor = `rgba(139, 92, 246, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Create stars
+        const stars = [];
+        for (let i = 0; i < 150; i++) {
+            stars.push(new Star());
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw gradient background
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#0a0a0f');
+            gradient.addColorStop(0.5, '#1a1a2e');
+            gradient.addColorStop(1, '#16213e');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+
+        // Mobile hamburger menu toggle
+        const hamburger = document.getElementById("hamburger");
+        const navMenu = document.querySelector("nav ul");
+        
+        if (hamburger) {
+            hamburger.addEventListener("click", () => {
+                hamburger.classList.toggle("active");
+                navMenu.classList.toggle("active");
+            });
+        }
+        
+        // Navigation handling with Docs toggle
+        const docsSection = document.getElementById("docs");
+        const mainSections = document.querySelectorAll("section:not(#docs)");
+        
+        document.querySelectorAll("a[href^=\"#\"]").forEach(anchor => {
+            anchor.addEventListener("click", function (e) {
+                e.preventDefault();
+                
+                // Close mobile menu
+                if (hamburger) {
+                    hamburger.classList.remove("active");
+                    navMenu.classList.remove("active");
+                }
+                
+                const targetId = this.getAttribute("href").substring(1);
+                
+                if (targetId === "docs") {
+                    // Show GitBook, hide main content
+                    docsSection.style.display = "block";
+                    mainSections.forEach(section => section.style.display = "none");
+                } else {
+                    // Hide GitBook, show main content
+                    docsSection.style.display = "none";
+                    mainSections.forEach(section => section.style.display = "block");
+                    
+                    // Scroll to target
+                    const target = document.getElementById(targetId);
+                    if (target) {
+                        target.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
